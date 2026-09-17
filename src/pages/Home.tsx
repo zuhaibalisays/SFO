@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { orgData } from "../data/org";
-import { CamelCaravan, BalochiPattern } from "../components/HeritageSVG";
+import { BalochiPattern } from "../components/HeritageSVG";
 import {
   GraduationCap,
   Users,
@@ -26,9 +26,16 @@ export function Home() {
         aria-labelledby="hero-heading"
         className="relative overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-brown-dark text-cream-light"
       >
-        {/* Heritage camel caravan — subtle background */}
-        <div className="absolute bottom-0 left-0 right-0 text-cream-light pointer-events-none" aria-hidden="true">
-          <CamelCaravan className="w-full h-auto" />
+        {/* Heritage camel image — Balochistan desert */}
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none" aria-hidden="true">
+          <img
+            src="https://image.qwenlm.ai/generated-images/cffee85b-3a82-4901-960d-1dffbfa5a274/_result.png"
+            alt=""
+            className="w-full h-auto object-cover object-bottom opacity-30 mix-blend-overlay"
+            width="1200"
+            height="600"
+            loading="lazy"
+          />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
@@ -161,18 +168,16 @@ export function Home() {
             </div>
 
             <div className="bg-gradient-to-br from-cream to-cream-light dark:from-dark-surface dark:to-dark-bg rounded-2xl p-8 md:p-10 border border-border dark:border-dark-border relative overflow-hidden">
-              {/* Subtle camel decoration */}
-              <div className="absolute -bottom-4 -right-4 text-primary opacity-20 pointer-events-none" aria-hidden="true">
-                <svg viewBox="0 0 120 100" className="w-32 h-32" fill="currentColor">
-                  <ellipse cx="55" cy="55" rx="30" ry="18" />
-                  <ellipse cx="50" cy="40" rx="12" ry="10" />
-                  <path d="M70 50 Q80 25 75 10" stroke="currentColor" strokeWidth="6" fill="none" strokeLinecap="round" />
-                  <ellipse cx="77" cy="8" rx="8" ry="5" />
-                  <line x1="38" y1="70" x2="35" y2="95" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                  <line x1="48" y1="70" x2="46" y2="95" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                  <line x1="62" y1="70" x2="64" y2="95" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                  <line x1="72" y1="68" x2="74" y2="95" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                </svg>
+              {/* Subtle camel image decoration */}
+              <div className="absolute -bottom-4 -right-4 opacity-15 pointer-events-none" aria-hidden="true">
+                <img
+                  src="https://image.qwenlm.ai/generated-images/cffee85b-3a82-4901-960d-1dffbfa5a274/_result.png"
+                  alt=""
+                  className="w-40 h-40 object-cover rounded-full"
+                  width="160"
+                  height="160"
+                  loading="lazy"
+                />
               </div>
 
               <div className="space-y-6 relative z-10">

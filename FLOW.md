@@ -379,30 +379,30 @@ rejectAll()
 
 ---
 
-## Heritage SVG Rendering
+## Heritage Image & SVG Rendering
 
-### CamelCaravan Component
+### Camel Image (Real Photograph)
 ```
-Props: { className?: string }
+Home.tsx Hero Section:
     │
-    ▼
-SVG viewBox="0 0 800 200"
+    ├── <img> tag with src pointing to Camel.jpg (or external URL)
+    ├── Positioned: absolute bottom-0, full width
+    ├── Styling: opacity-30, mix-blend-overlay, object-cover
+    ├── Dimensions: width="1200" height="600"
+    ├── Loading: lazy
+    └── aria-hidden="true" (decorative)
+
+Home.tsx Mission Card:
     │
-    ├── Sand dunes (2 paths, opacity 0.08/0.05)
-    ├── Camel 1 (lead, opacity 0.15)
-    │   └── Body, hump, neck, head, 4 legs, tail
-    ├── Camel 2 (middle, scale 0.85, opacity 0.12)
-    ├── Camel 3 (trailing, scale 0.7, opacity 0.09)
-    └── Handler figure (opacity 0.15)
-        └── Head, body, arms, legs, staff, turban
-    │
-    ▼
-All elements use fill="currentColor" or stroke="currentColor"
-    → Inherits color from parent (theme-adaptive)
-    → aria-hidden="true" (decorative)
+    ├── <img> tag with same source
+    ├── Positioned: absolute -bottom-4 -right-4
+    ├── Styling: opacity-15, w-40 h-40, object-cover, rounded-full
+    ├── Dimensions: width="160" height="160"
+    ├── Loading: lazy
+    └── aria-hidden="true" (decorative)
 ```
 
-### BalochiPattern Component
+### BalochiPattern Component (SVG)
 ```
 SVG viewBox="0 0 400 40"
     │
@@ -418,17 +418,26 @@ Used as section divider (h-6, opacity 20-40%)
 ### Usage Locations
 ```
 Home.tsx:
-    ├── Hero background: <CamelCaravan className="w-full h-auto" />
-    └── Hero bottom border: <BalochiPattern className="w-full h-6 opacity-40" />
+    ├── Hero background: <img src="Camel.jpg" /> (real photo, opacity 30%)
+    ├── Hero bottom border: <BalochiPattern /> (SVG, opacity 40%)
+    └── Mission card: <img src="Camel.jpg" /> (circular crop, opacity 15%)
 
 About.tsx:
-    └── Page header bottom: <BalochiPattern className="w-full h-6 opacity-30" />
+    └── Page header bottom: <BalochiPattern /> (SVG, opacity 30%)
 
 Programs.tsx:
-    └── Page header bottom: <BalochiPattern className="w-full h-6 opacity-20" />
+    └── Page header bottom: <BalochiPattern /> (SVG, opacity 20%)
+```
 
-Home.tsx (mission section):
-    └── Card background: inline camel SVG (opacity 0.2, decorative)
+### Image Source
+```
+Current: External URL (temporary)
+  https://image.qwenlm.ai/generated-images/[id]/_result.png
+
+Production: Self-hosted
+  /images/Camel.jpg (placed in public/images/)
+
+Source: Organization's GitHub repository "NGO" or AI-generated
 ```
 
 ---

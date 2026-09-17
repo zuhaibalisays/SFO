@@ -37,20 +37,21 @@
 
 ---
 
-## 3. Heritage SVG Illustrations
+## 3. Heritage Illustrations — Real Camel Photo + SVG Pattern
 
-**Decision:** Created subtle SVG illustrations (camel caravan, Balochi pattern) rather than stock photos or AI-generated images.
+**Decision:** Replaced SVG camel vectors with a real camel photograph for the hero section, while keeping the Balochi pattern SVG as a decorative element.
 
 **Rationale:**
-- Zero file size impact (inline SVG)
-- Theme-adaptive (uses `currentColor`)
-- Culturally appropriate without risking misrepresentation
-- No consent issues (unlike photographs of people)
+- Real photograph provides authentic cultural representation
+- More visually striking and emotionally engaging than vectors
+- The camel is iconic to Balochistan's desert heritage
+- Balochi pattern SVG retained for theme adaptability (uses `currentColor`)
 
 **Trade-off:**
-- Less visually striking than photography
-- May not convey "real" community impact as effectively
-- Mitigated by: using sparingly as decorative accents, not primary content
+- Larger file size (JPEG vs. inline SVG)
+- Requires image optimization for web performance
+- External URL dependency (until image is self-hosted)
+- Mitigated by: lazy loading, proper dimensions, opacity overlays to reduce visual weight
 
 ---
 

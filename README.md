@@ -215,22 +215,18 @@ All colors defined as CSS custom properties in `src/index.css`:
 
 ## Heritage Illustrations
 
-SVG illustrations in `src/components/HeritageSVG.tsx`:
+### Camel Image (Real Photograph)
+- **Location:** `public/images/Camel.jpg` (or external URL as fallback)
+- **Description:** A dromedary camel in the Balochistan desert landscape
+- **Usage:** Hero section background (subtle, with overlay blend) and mission card decoration
+- **Source:** Organization's GitHub repository "NGO" or AI-generated
 
-### CamelCaravan
-- Desert caravan silhouette with handler figure
-- Used in hero section background (subtle, ~15% opacity)
-- Evokes Balochistan's cultural heritage
-
-### BalochiPattern
+### BalochiPattern (SVG)
 - Geometric diamond pattern inspired by Balochi needlework (dochi)
 - Used as section dividers (subtle border decoration)
+- Located in `src/components/HeritageSVG.tsx`
 
-### CamelSilhouette
-- Single camel for small decorative accents
-- Used sparingly in card backgrounds
-
-**Usage principle:** Heritage elements are decorative only (`aria-hidden="true"`), use `currentColor` for theme adaptability, and never overwhelm content.
+**Usage principle:** Heritage elements are decorative only (`aria-hidden="true"`), and never overwhelm content. The camel is a real photograph for authenticity; the Balochi pattern remains as SVG for theme adaptability.
 
 ---
 
