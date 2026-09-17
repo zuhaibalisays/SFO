@@ -15,9 +15,6 @@ import {
   Loader2,
 } from "lucide-react";
 
-/* ============================================
-   Subject Options (allow-listed)
-   ============================================ */
 const SUBJECT_OPTIONS = [
   { value: "general", label: "General Inquiry" },
   { value: "volunteer", label: "Volunteer" },
@@ -27,9 +24,6 @@ const SUBJECT_OPTIONS = [
 
 type SubjectValue = (typeof SUBJECT_OPTIONS)[number]["value"];
 
-/* ============================================
-   Validation Helpers
-   ============================================ */
 function validateName(name: string): string | null {
   if (!name || name.trim().length < 2) return "Name must be at least 2 characters.";
   if (name.trim().length > 80) return "Name must be 80 characters or fewer.";
@@ -46,8 +40,7 @@ function validateEmail(email: string): string | null {
 }
 
 function validatePhone(phone: string): string | null {
-  if (!phone) return null; // optional
-  // Accept E.164 or Pakistani local format
+  if (!phone) return null;
   const phoneRegex = /^(\+92|0)?[0-9]{10,12}$/;
   const cleaned = phone.replace(/[\s\-()]/g, "");
   if (!phoneRegex.test(cleaned)) return "Please enter a valid phone number.";
@@ -68,16 +61,12 @@ function validateMessage(message: string): string | null {
 
 /**
  * Contact Page
- * 
- * Contact info card + message form with full validation.
- * Form degrades gracefully without JS (HTML form with method="POST").
  */
 export function Contact() {
   const [searchParams] = useSearchParams();
   const formRef = useRef<HTMLFormElement>(null);
   const renderedAt = useRef(Date.now());
 
-  // Form state
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -85,16 +74,13 @@ export function Contact() {
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
 
-  // Validation state
   const [errors, setErrors] = useState<Record<string, string | null>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  // Submission state
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState(false);
 
-  // Pre-select subject from URL query string (validated against allow-list)
   useEffect(() => {
     const subjectParam = searchParams.get("subject");
     if (subjectParam) {
@@ -105,7 +91,6 @@ export function Contact() {
     }
   }, [searchParams]);
 
-  // Validate a single field
   const validateField = useCallback((field: string, value: string) => {
     let error: string | null = null;
     switch (field) {
@@ -119,18 +104,15 @@ export function Contact() {
     return error;
   }, []);
 
-  // Handle blur for field validation
   const handleBlur = (field: string, value: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     validateField(field, value);
   };
 
-  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitError(false);
 
-    // Validate all fields
     const allErrors: Record<string, string | null> = {
       name: validateName(name),
       email: validateEmail(email),
@@ -141,10 +123,8 @@ export function Contact() {
     setErrors(allErrors);
     setTouched({ name: true, email: true, phone: true, subject: true, message: true });
 
-    // Check for errors
     const hasErrors = Object.values(allErrors).some((e) => e !== null);
     if (hasErrors) {
-      // Focus first invalid field
       const firstErrorField = Object.entries(allErrors).find(([, err]) => err !== null);
       if (firstErrorField) {
         const el = formRef.current?.querySelector<HTMLElement>(`[name="${firstErrorField[0]}"]`);
@@ -153,10 +133,8 @@ export function Contact() {
       return;
     }
 
-    // Check timing (anti-bot: reject if form submitted too quickly)
     const formAge = Date.now() - renderedAt.current;
     if (formAge < 3000) {
-      // Silently accept (fake success for bots)
       setSubmitting(true);
       await new Promise((r) => setTimeout(r, 1500));
       setSubmitting(false);
@@ -164,7 +142,6 @@ export function Contact() {
       return;
     }
 
-    // Check honeypot
     if (honeypot) {
       setSubmitting(true);
       await new Promise((r) => setTimeout(r, 1500));
@@ -173,11 +150,8 @@ export function Contact() {
       return;
     }
 
-    // Submit
     setSubmitting(true);
     try {
-      // In production, this would POST to /api/contact
-      // For now, simulate a successful submission
       await new Promise((r) => setTimeout(r, 1500));
       setSubmitted(true);
     } catch {
@@ -187,7 +161,6 @@ export function Contact() {
     }
   };
 
-  // Character counter for message
   const messageLength = message.trim().length;
 
   if (submitted) {
@@ -195,7 +168,7 @@ export function Contact() {
       <>
         <section
           aria-labelledby="page-heading"
-          className="bg-gradient-to-br from-accent to-accent-dark text-white py-12 md:py-16"
+          className="bg-gradient-to-br from-teal to-teal-dark text-cream-light py-12 md:py-16"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 id="page-heading" className="text-3xl md:text-4xl font-bold">Contact Us</h1>
@@ -203,11 +176,11 @@ export function Contact() {
         </section>
         <section aria-labelledby="success-heading" className="py-16 md:py-20">
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 md:p-12 border border-border dark:border-dark-border shadow-sm">
+            <div className="bg-cream-light dark:bg-dark-bg rounded-2xl p-8 md:p-12 border border-border dark:border-dark-border shadow-sm">
               <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="text-green-600 dark:text-green-400" size={32} aria-hidden="true" />
               </div>
-              <h2 id="success-heading" className="text-2xl font-bold text-ink dark:text-white mb-4">
+              <h2 id="success-heading" className="text-2xl font-bold text-ink dark:text-cream-light mb-4">
                 Message Sent Successfully!
               </h2>
               <p className="text-muted dark:text-dark-muted leading-relaxed mb-6">
@@ -226,13 +199,13 @@ export function Contact() {
                     setErrors({});
                     setTouched({});
                   }}
-                  className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors"
+                  className="px-6 py-3 bg-primary text-cream-light font-semibold rounded-lg hover:bg-primary-dark transition-colors"
                 >
                   Send Another Message
                 </button>
                 <Link
                   to="/"
-                  className="px-6 py-3 border border-border dark:border-dark-border text-ink dark:text-white font-semibold rounded-lg hover:bg-subtle dark:hover:bg-dark-surface transition-colors"
+                  className="px-6 py-3 border border-border dark:border-dark-border text-ink dark:text-cream-light font-semibold rounded-lg hover:bg-subtle dark:hover:bg-dark-surface transition-colors"
                 >
                   Return Home
                 </Link>
@@ -249,20 +222,20 @@ export function Contact() {
       {/* Page Header */}
       <section
         aria-labelledby="page-heading"
-        className="bg-gradient-to-br from-accent to-accent-dark text-white py-12 md:py-16"
+        className="bg-gradient-to-br from-teal to-teal-dark text-cream-light py-12 md:py-16"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4">
-            <ol className="flex items-center gap-2 text-sm text-white/70">
-              <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+            <ol className="flex items-center gap-2 text-sm text-cream/70">
+              <li><Link to="/" className="hover:text-cream-light transition-colors">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li className="text-white" aria-current="page">Contact Us</li>
+              <li className="text-cream-light" aria-current="page">Contact Us</li>
             </ol>
           </nav>
           <h1 id="page-heading" className="text-3xl md:text-4xl font-bold">
             Contact Us
           </h1>
-          <p className="mt-3 text-white/80 text-lg max-w-2xl">
+          <p className="mt-3 text-cream/80 text-lg max-w-2xl">
             We&apos;d love to hear from you. Reach out with questions, partnership ideas, or to learn
             more about our work.
           </p>
@@ -275,8 +248,8 @@ export function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Contact Info Card */}
             <div className="lg:col-span-1">
-              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 md:p-8 border border-border dark:border-dark-border shadow-sm sticky top-24">
-                <h3 className="text-lg font-bold text-ink dark:text-white mb-6">
+              <div className="bg-cream-light dark:bg-dark-bg rounded-xl p-6 md:p-8 border border-border dark:border-dark-border shadow-sm sticky top-24">
+                <h3 className="text-lg font-bold text-ink dark:text-cream-light mb-6">
                   Get in Touch
                 </h3>
 
@@ -286,7 +259,7 @@ export function Contact() {
                       <MapPin className="text-primary" size={18} aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="font-medium text-ink dark:text-white text-sm">Address</p>
+                      <p className="font-medium text-ink dark:text-cream-light text-sm">Address</p>
                       <p className="text-muted dark:text-dark-muted text-sm">
                         {orgData.headOffice.full}
                       </p>
@@ -298,10 +271,10 @@ export function Contact() {
                       <Phone className="text-primary" size={18} aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="font-medium text-ink dark:text-white text-sm">Phone</p>
+                      <p className="font-medium text-ink dark:text-cream-light text-sm">Phone</p>
                       <a
                         href={`tel:${orgData.contact.phoneTel}`}
-                        className="text-muted dark:text-dark-muted text-sm hover:text-primary dark:hover:text-accent-light transition-colors"
+                        className="text-muted dark:text-dark-muted text-sm hover:text-primary dark:hover:text-accent-light transition-colors whitespace-nowrap"
                       >
                         {orgData.contact.phone}
                       </a>
@@ -313,7 +286,7 @@ export function Contact() {
                       <Mail className="text-primary" size={18} aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="font-medium text-ink dark:text-white text-sm">Email</p>
+                      <p className="font-medium text-ink dark:text-cream-light text-sm">Email</p>
                       <a
                         href={`mailto:${orgData.contact.email}`}
                         className="text-muted dark:text-dark-muted text-sm hover:text-primary dark:hover:text-accent-light transition-colors break-all"
@@ -326,7 +299,7 @@ export function Contact() {
 
                 {/* Social Links */}
                 <div className="mt-8 pt-6 border-t border-border dark:border-dark-border">
-                  <p className="font-medium text-ink dark:text-white text-sm mb-3">Follow Us</p>
+                  <p className="font-medium text-ink dark:text-cream-light text-sm mb-3">Follow Us</p>
                   <div className="flex gap-3">
                     <a
                       href={orgData.social.instagram.url}
@@ -371,8 +344,8 @@ export function Contact() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 md:p-8 border border-border dark:border-dark-border shadow-sm">
-                <h3 className="text-lg font-bold text-ink dark:text-white mb-6">
+              <div className="bg-cream-light dark:bg-dark-bg rounded-xl p-6 md:p-8 border border-border dark:border-dark-border shadow-sm">
+                <h3 className="text-lg font-bold text-ink dark:text-cream-light mb-6">
                   Send Us a Message
                 </h3>
 
@@ -404,7 +377,7 @@ export function Contact() {
                   noValidate
                   className="space-y-5"
                 >
-                  {/* Honeypot field */}
+                  {/* Honeypot */}
                   <div className="honeypot-field" aria-hidden="true">
                     <label htmlFor="company_website">Company Website</label>
                     <input
@@ -420,8 +393,8 @@ export function Contact() {
 
                   {/* Full Name */}
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-ink dark:text-white mb-1.5">
-                      Full Name <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="name" className="block text-sm font-medium text-ink dark:text-cream-light mb-1.5">
+                      Full Name <span className="text-accent" aria-hidden="true">*</span>
                       <span className="sr-only">(required)</span>
                     </label>
                     <input
@@ -438,9 +411,9 @@ export function Contact() {
                       aria-describedby={errors.name ? "name-error" : undefined}
                       className={`w-full px-4 py-2.5 rounded-lg border ${
                         touched.name && errors.name
-                          ? "border-red-500 dark:border-red-400"
+                          ? "border-accent dark:border-accent-light"
                           : "border-border dark:border-dark-border"
-                      } bg-white dark:bg-slate-700 text-ink dark:text-white placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
+                      } bg-cream-light dark:bg-dark-surface text-ink dark:text-cream-light placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
                       placeholder="Your full name"
                     />
                     {touched.name && errors.name && (
@@ -452,8 +425,8 @@ export function Contact() {
 
                   {/* Email */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-ink dark:text-white mb-1.5">
-                      Email Address <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="email" className="block text-sm font-medium text-ink dark:text-cream-light mb-1.5">
+                      Email Address <span className="text-accent" aria-hidden="true">*</span>
                       <span className="sr-only">(required)</span>
                     </label>
                     <input
@@ -468,9 +441,9 @@ export function Contact() {
                       aria-describedby={errors.email ? "email-error" : undefined}
                       className={`w-full px-4 py-2.5 rounded-lg border ${
                         touched.email && errors.email
-                          ? "border-red-500 dark:border-red-400"
+                          ? "border-accent dark:border-accent-light"
                           : "border-border dark:border-dark-border"
-                      } bg-white dark:bg-slate-700 text-ink dark:text-white placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
+                      } bg-cream-light dark:bg-dark-surface text-ink dark:text-cream-light placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
                       placeholder="your@email.com"
                     />
                     {touched.email && errors.email && (
@@ -480,9 +453,9 @@ export function Contact() {
                     )}
                   </div>
 
-                  {/* Phone (optional) */}
+                  {/* Phone */}
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-ink dark:text-white mb-1.5">
+                    <label htmlFor="phone" className="block text-sm font-medium text-ink dark:text-cream-light mb-1.5">
                       Phone / WhatsApp <span className="text-muted dark:text-dark-muted font-normal">(optional)</span>
                     </label>
                     <input
@@ -496,9 +469,9 @@ export function Contact() {
                       aria-describedby={errors.phone ? "phone-error" : undefined}
                       className={`w-full px-4 py-2.5 rounded-lg border ${
                         touched.phone && errors.phone
-                          ? "border-red-500 dark:border-red-400"
+                          ? "border-accent dark:border-accent-light"
                           : "border-border dark:border-dark-border"
-                      } bg-white dark:bg-slate-700 text-ink dark:text-white placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
+                      } bg-cream-light dark:bg-dark-surface text-ink dark:text-cream-light placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
                       placeholder="0322 2773334"
                     />
                     {touched.phone && errors.phone && (
@@ -510,8 +483,8 @@ export function Contact() {
 
                   {/* Subject */}
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-ink dark:text-white mb-1.5">
-                      Subject <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="subject" className="block text-sm font-medium text-ink dark:text-cream-light mb-1.5">
+                      Subject <span className="text-accent" aria-hidden="true">*</span>
                       <span className="sr-only">(required)</span>
                     </label>
                     <select
@@ -525,9 +498,9 @@ export function Contact() {
                       aria-describedby={errors.subject ? "subject-error" : undefined}
                       className={`w-full px-4 py-2.5 rounded-lg border ${
                         touched.subject && errors.subject
-                          ? "border-red-500 dark:border-red-400"
+                          ? "border-accent dark:border-accent-light"
                           : "border-border dark:border-dark-border"
-                      } bg-white dark:bg-slate-700 text-ink dark:text-white focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
+                      } bg-cream-light dark:bg-dark-surface text-ink dark:text-cream-light focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors`}
                     >
                       {SUBJECT_OPTIONS.map((opt) => (
                         <option key={opt.value} value={opt.value}>
@@ -544,8 +517,8 @@ export function Contact() {
 
                   {/* Message */}
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-ink dark:text-white mb-1.5">
-                      Message <span className="text-red-500" aria-hidden="true">*</span>
+                    <label htmlFor="message" className="block text-sm font-medium text-ink dark:text-cream-light mb-1.5">
+                      Message <span className="text-accent" aria-hidden="true">*</span>
                       <span className="sr-only">(required)</span>
                     </label>
                     <textarea
@@ -562,9 +535,9 @@ export function Contact() {
                       aria-describedby={`message-counter ${errors.message ? "message-error" : ""}`}
                       className={`w-full px-4 py-2.5 rounded-lg border ${
                         touched.message && errors.message
-                          ? "border-red-500 dark:border-red-400"
+                          ? "border-accent dark:border-accent-light"
                           : "border-border dark:border-dark-border"
-                      } bg-white dark:bg-slate-700 text-ink dark:text-white placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors resize-y`}
+                      } bg-cream-light dark:bg-dark-surface text-ink dark:text-cream-light placeholder:text-muted dark:placeholder:text-dark-muted focus:border-primary dark:focus:border-accent-light focus:ring-2 focus:ring-primary/20 dark:focus:ring-accent-light/20 transition-colors resize-y`}
                       placeholder="Tell us how we can help..."
                     />
                     <div className="flex justify-between items-center mt-1.5">
@@ -578,7 +551,7 @@ export function Contact() {
                       <p
                         id="message-counter"
                         className={`text-xs ${
-                          messageLength > 2000 ? "text-red-500" : "text-muted dark:text-dark-muted"
+                          messageLength > 2000 ? "text-accent" : "text-muted dark:text-dark-muted"
                         }`}
                         aria-live="polite"
                       >
@@ -587,11 +560,11 @@ export function Contact() {
                     </div>
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit */}
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary hover:bg-primary-dark text-cream-light font-semibold rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                     aria-busy={submitting}
                   >
                     {submitting ? (
