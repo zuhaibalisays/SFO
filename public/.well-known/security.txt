@@ -1,0 +1,6 @@
+Contact: mailto:Sfawelfareorganization@gmail.com
+Contact: tel:+923222773334
+Preferred-Languages: en, ur
+Canonical: https://schoolforall.org.pk/.well-known/security.txt
+Policy: https://schoolforall.org.pk/SECURITY.md
+Expires: 2026-01-01T00:00:00.000Z
