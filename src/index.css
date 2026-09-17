@@ -1,1 +1,140 @@
 @import "tailwindcss";
+
+/* ============================================
+   SFA Design System Tokens
+   Based on Section 6.1 of the master spec
+   All color pairs pass WCAG AA ≥ 4.5:1
+   ============================================ */
+
+@theme {
+  /* Primary palette */
+  --color-primary: #1D4E89;
+  --color-primary-dark: #163d6b;
+  --color-primary-light: #2563a8;
+  --color-accent: #0F766E;
+  --color-accent-dark: #0b5c55;
+  --color-accent-light: #14918a;
+
+  /* Neutral palette */
+  --color-ink: #111827;
+  --color-muted: #4B5563;
+  --color-surface: #FFFFFF;
+  --color-subtle: #F1F5F9;
+  --color-border: #E2E8F0;
+
+  /* Focus */
+  --color-focus: #F59E0B;
+
+  /* Dark mode */
+  --color-dark-bg: #0f172a;
+  --color-dark-surface: #1e293b;
+  --color-dark-muted: #94a3b8;
+  --color-dark-border: #334155;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles - never removed */
+*:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  z-index: 9999;
+  font-weight: 600;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Dark mode base */
+html.dark {
+  color-scheme: dark;
+}
+
+/* Fluid typography */
+h1 { font-size: clamp(1.875rem, 2.5vw + 1rem, 3rem); line-height: 1.2; font-weight: 800; }
+h2 { font-size: clamp(1.5rem, 2vw + 0.75rem, 2.25rem); line-height: 1.3; font-weight: 700; }
+h3 { font-size: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem); line-height: 1.4; font-weight: 600; }
+h4 { font-size: clamp(1.125rem, 1vw + 0.5rem, 1.375rem); line-height: 1.4; font-weight: 600; }
+
+/* Max text measure */
+.prose { max-width: 70ch; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Honeypot field - visually hidden but not display:none */
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+/* Ad slot placeholder */
+.ad-slot {
+  min-height: 90px;
+  aspect-ratio: auto;
+}
+
+/* Form error styles */
+.field-error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+html.dark .field-error {
+  color: #fca5a5;
+}
