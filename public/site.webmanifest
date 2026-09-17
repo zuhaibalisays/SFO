@@ -1,0 +1,16 @@
+{
+  "name": "School For All Welfare Organization",
+  "short_name": "SFA",
+  "description": "Expanding educational access and empowering communities in Balochistan, Pakistan.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#7A4A1E",
+  "background_color": "#FBF6EE",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

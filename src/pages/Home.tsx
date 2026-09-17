@@ -24,17 +24,17 @@ export function Home() {
       {/* Hero Section */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-brown-dark text-cream-light"
+        className="relative overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-primary-dark text-cream-light"
       >
         {/* Heritage camel image — Balochistan desert */}
         <div className="absolute bottom-0 left-0 right-0 pointer-events-none" aria-hidden="true">
           <img
-            src="https://image.qwenlm.ai/generated-images/cffee85b-3a82-4901-960d-1dffbfa5a274/_result.png"
-            alt=""
+            src="/images/Camel.jpg"
+            alt="Camel in the Balochistan desert landscape representing the cultural heritage of the region"
             className="w-full h-auto object-cover object-bottom opacity-30 mix-blend-overlay"
             width="1200"
             height="600"
-            loading="lazy"
+            fetchPriority="high"
           />
         </div>
 
@@ -171,7 +171,7 @@ export function Home() {
               {/* Subtle camel image decoration */}
               <div className="absolute -bottom-4 -right-4 opacity-15 pointer-events-none" aria-hidden="true">
                 <img
-                  src="https://image.qwenlm.ai/generated-images/cffee85b-3a82-4901-960d-1dffbfa5a274/_result.png"
+                  src="/images/Camel.jpg"
                   alt=""
                   className="w-40 h-40 object-cover rounded-full"
                   width="160"
