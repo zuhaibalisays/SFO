@@ -80,8 +80,8 @@ export function GetInvolved() {
 
             {/* Partner */}
             <div className="bg-cream-light dark:bg-dark-bg rounded-xl p-8 border border-border dark:border-dark-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-xl bg-teal/10 flex items-center justify-center mb-6">
-                <Building2 className="text-teal" size={28} aria-hidden="true" />
+              <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
+                <Building2 className="text-secondary" size={28} aria-hidden="true" />
               </div>
               <h3 className="text-xl font-bold text-ink dark:text-cream-light mb-3">
                 Partner With Us
@@ -93,21 +93,21 @@ export function GetInvolved() {
               </p>
               <ul className="space-y-2 mb-6 text-sm text-muted dark:text-dark-muted">
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" aria-hidden="true" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" aria-hidden="true" />
                   Educational institution partnerships
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" aria-hidden="true" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" aria-hidden="true" />
                   Corporate social responsibility alignment
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal shrink-0" aria-hidden="true" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" aria-hidden="true" />
                   Collaborative community projects
                 </li>
               </ul>
               <Link
                 to="/contact?subject=general"
-                className="inline-flex items-center gap-2 text-teal dark:text-teal-light font-semibold hover:underline"
+                className="inline-flex items-center gap-2 text-secondary dark:text-secondary-light font-semibold hover:underline"
               >
                 Discuss a partnership
                 <ArrowRight size={16} aria-hidden="true" />

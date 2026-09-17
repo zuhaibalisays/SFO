@@ -168,7 +168,7 @@ export function Contact() {
       <>
         <section
           aria-labelledby="page-heading"
-          className="bg-gradient-to-br from-teal to-teal-dark text-cream-light py-12 md:py-16"
+          className="bg-gradient-to-br from-accent to-accent-dark text-cream-light py-12 md:py-16"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 id="page-heading" className="text-3xl md:text-4xl font-bold">Contact Us</h1>
@@ -222,7 +222,7 @@ export function Contact() {
       {/* Page Header */}
       <section
         aria-labelledby="page-heading"
-        className="bg-gradient-to-br from-teal to-teal-dark text-cream-light py-12 md:py-16"
+        className="bg-gradient-to-br from-accent to-accent-dark text-cream-light py-12 md:py-16"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4">

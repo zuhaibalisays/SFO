@@ -34,7 +34,7 @@ export function Programs() {
       {/* Page Header */}
       <section
         aria-labelledby="page-heading"
-        className="bg-gradient-to-br from-teal to-teal-dark text-cream-light py-12 md:py-16 relative overflow-hidden"
+        className="bg-gradient-to-br from-primary to-primary-dark text-cream-light py-12 md:py-16 relative overflow-hidden"
       >
         <div className="absolute bottom-0 left-0 right-0 text-cream-light" aria-hidden="true">
           <BalochiPattern className="w-full h-6 opacity-20" />
@@ -236,7 +236,7 @@ export function Programs() {
             </div>
 
             <div className="bg-cream-light dark:bg-dark-bg rounded-xl p-6 border border-border dark:border-dark-border">
-              <BookOpen className="text-teal mb-4" size={28} aria-hidden="true" />
+              <BookOpen className="text-accent mb-4" size={28} aria-hidden="true" />
               <h3 className="font-bold text-ink dark:text-cream-light mb-2">Official Engagements</h3>
               <p className="text-sm text-muted dark:text-dark-muted">
                 Collaboration with government officials, including engagements at our central

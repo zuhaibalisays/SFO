@@ -135,8 +135,8 @@ export function About() {
             </div>
 
             <div className="text-center p-6 bg-cream-light dark:bg-dark-bg rounded-xl border border-border dark:border-dark-border">
-              <div className="w-12 h-12 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-4">
-                <Users className="text-teal" size={24} aria-hidden="true" />
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Users className="text-primary" size={24} aria-hidden="true" />
               </div>
               <h3 className="font-bold text-ink dark:text-cream-light mb-2">
                 Community Visits
@@ -147,8 +147,8 @@ export function About() {
             </div>
 
             <div className="text-center p-6 bg-cream-light dark:bg-dark-bg rounded-xl border border-border dark:border-dark-border">
-              <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4">
-                <Heart className="text-secondary" size={24} aria-hidden="true" />
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                <Heart className="text-accent" size={24} aria-hidden="true" />
               </div>
               <h3 className="font-bold text-ink dark:text-cream-light mb-2">
                 Official Engagements

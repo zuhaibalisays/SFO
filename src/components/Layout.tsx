@@ -11,8 +11,6 @@ import {
   Phone,
   Mail,
   MapPin,
-  Sun,
-  Moon,
   ChevronRight,
 } from "lucide-react";
 
@@ -49,7 +47,7 @@ function SkipLink() {
 /* ============================================
    Header / Navigation
    ============================================ */
-function Header({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => void }) {
+function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -131,24 +129,10 @@ function Header({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
                 {link.label}
               </NavLink>
             ))}
-            <button
-              onClick={() => setDark(!dark)}
-              className="ml-2 p-2 rounded-lg text-muted dark:text-dark-muted hover:bg-subtle dark:hover:bg-dark-surface transition-colors"
-              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {dark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
           </nav>
 
           {/* Mobile menu toggle */}
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              onClick={() => setDark(!dark)}
-              className="p-2 rounded-lg text-muted dark:text-dark-muted"
-              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {dark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+          <div className="flex items-center md:hidden">
             <button
               ref={toggleRef}
               onClick={() => setMenuOpen(!menuOpen)}
@@ -419,7 +403,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-surface dark:bg-dark-bg text-ink dark:text-cream-light">
       <SkipLink />
-      <Header dark={dark} setDark={setDark} />
+      <Header />
       <main id="main-content" className="flex-1" tabIndex={-1}>
         <Outlet />
       </main>
